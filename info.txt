@@ -1,0 +1,36 @@
+dotnet new webapp -n Pokédex
+dotnet add package CsvHelper
+mkdir Models
+Maak hier simpelweg een class aan voor de Pokemon variablen.
+
+
+sudo apt update ;
+sudo apt install postgresql postgresql-contrib -y ;
+sudo systemctl status postgresql ;
+sudo -u postgres psql
+
+CREATE DATABASE pokedex;
+CREATE USER pokedex_user WITH ENCRYPTED PASSWORD 'Tijdelijk123';
+GRANT ALL PRIVILEGES ON DATABASE pokedex TO pokedex_user;
+\q
+
+
+
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+
+
+
+
+# database
+dotnet tool install --global dotnet-ef
+~/.dotnet/tools/dotnet-ef --version
+export PATH="$PATH:$HOME/.dotnet/tools"
+source ~/.zshrc
+dotnet ef
+
+
+
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet ef migrations add InitialCreate
+dotnet ef database update
