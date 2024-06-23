@@ -1,36 +1,69 @@
-dotnet new webapp -n Pokédex
-dotnet add package CsvHelper
-mkdir Models
-Maak hier simpelweg een class aan voor de Pokemon variablen.
+##################################################################
+# Check if database is properly populated with pokemon.csv data
+##################################################################
 
+# Start the containers
+docker compose up -d
 
-sudo apt update ;
-sudo apt install postgresql postgresql-contrib -y ;
-sudo systemctl status postgresql ;
-sudo -u postgres psql
+# SSH into the container
+docker exec -it postgres_db bash
 
-CREATE DATABASE pokedex;
-CREATE USER pokedex_user WITH ENCRYPTED PASSWORD 'Tijdelijk123';
-GRANT ALL PRIVILEGES ON DATABASE pokedex TO pokedex_user;
+# Connect to the PostgreSQL database
+psql -U user123 -d pokemon
+
+# List all tables
+\dt
+
+# Describe the pokemon table
+\d pokemon
+
+# Query the first 10 rows from the pokemon table
+SELECT * FROM pokemon LIMIT 10;
+
+# Exit the PostgreSQL prompt
 \q
 
+######################################################################
+# INSPECT VIA pgAdmin
+#####################################################################
 
+1. Log in to pgAdmin
 
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+Navigate to http://localhost:5050 and log in with the credentials you set in the docker-compose.yml file:
 
+    Email: admin@admin.com
+    Password: admin
 
+2. Add a New Server in pgAdmin
 
+Once logged in, follow these steps to connect to your PostgreSQL database:
 
-# database
-dotnet tool install --global dotnet-ef
-~/.dotnet/tools/dotnet-ef --version
-export PATH="$PATH:$HOME/.dotnet/tools"
-source ~/.zshrc
-dotnet ef
+    Right-click on "Servers" in the Browser panel on the left and select "Create" > "Server".
 
+    Fill in the General tab:
+        Name: Pokemon Server (or any name you prefer)
 
+    Switch to the Connection tab:
+        Host name/address: db
+        Port: 5432
+        Maintenance database: pokemon
+        Username: user123
+        Password: password123
+        Save Password: check this option
 
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+    Click "Save" to add the server.
+
+3. Inspect the Database
+
+After adding the server, you should see it listed under "Servers" in the Browser panel. Expand it to see the databases and tables:
+
+    Expand "Servers" > Pokemon Server > Databases > pokemon.
+    Expand the "Schemas" > public > Tables.
+
+You should see your pokemon table listed here.
+4. View Table Data
+
+To view the data in the pokemon table:
+
+    Right-click on the pokemon table and select "View/Edit Data" > "All Rows".
+    A new tab will open displaying the data in your pokemon table.
