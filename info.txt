@@ -67,3 +67,31 @@ To view the data in the pokemon table:
 
     Right-click on the pokemon table and select "View/Edit Data" > "All Rows".
     A new tab will open displaying the data in your pokemon table.
+
+
+######################################################################
+# dotnet
+#####################################################################
+
+dotnet new mvc -n Pokemon ;
+cd Pokemon ;
+
+Configure the database connection in appsettings.json
+
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=pokemon;Username=user123;Password=password123"
+  }
+
+Then create the Model Pokemon.cs
+
+Then add the DbContext by creating Data folder and add ApplicationDbContext.cs
+
+Also install (this will update your Pokemon.csproj)
+
+dotnet add package Microsoft.EntityFrameworkCore --version 6.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.0
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.0
+
+
+Then update Program.cs
