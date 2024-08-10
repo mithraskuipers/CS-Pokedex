@@ -95,3 +95,10 @@ dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.0
 
 
 Then update Program.cs
+
+
+######################################################################
+# Testing endpoints
+#####################################################################
+
+http://localhost:5175/api/pokemon/1

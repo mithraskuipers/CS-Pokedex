@@ -16,10 +16,24 @@ namespace Pokemon.Controllers
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        // GET api/pokemon/{id}
+        [HttpGet("id/{id}")]
         public async Task<ActionResult<Pokemon.Models.Pokemon>> GetPokemon(int id)
         {
             var pokemon = await _context.pokemon.FirstOrDefaultAsync(p => p.id == id);
+            if (pokemon == null)
+            {
+                return NotFound();
+            }
+
+            return pokemon;
+        }
+
+        // GET api/pokemon/byname/{name}
+        [HttpGet("name/{name}")]
+        public async Task<ActionResult<Pokemon.Models.Pokemon>> GetPokemonByName(string name)
+        {
+            var pokemon = await _context.pokemon.FirstOrDefaultAsync(p => p.name == name);
             if (pokemon == null)
             {
                 return NotFound();
